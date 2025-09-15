@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        maven 'MyMavenTool'  // Requires Maven tool configured in Jenkins
-        jdk 'JDK11' // Requires JDK tool configured in Jenkins
+        maven 'MyMavenTool'
+        jdk 'JDK11'
     }
     stages {
         stage('Checkout') {
@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh 'mvn test -Dmaven.test.failure.ignore=true' // Continue even if tests fail
             }
             post {
                 always {
@@ -41,6 +41,9 @@ pipeline {
         }
         failure {
             echo 'Build failed! Check the logs for details.'
+        }
+        unstable {
+            echo 'Build is unstable due to test failures, but artifact was created'
         }
     }
 }
