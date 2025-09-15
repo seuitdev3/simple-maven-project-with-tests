@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'M3'  // Requires Maven tool configured in Jenkins
+        maven 'MyMavenTool'  // Requires Maven tool configured in Jenkins
         jdk 'JDK11' // Requires JDK tool configured in Jenkins
     }
     stages {
